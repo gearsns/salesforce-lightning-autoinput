@@ -85,7 +85,7 @@ await import('https://********.visualforce.com/salesforce-lightning-autoinput.js
 
 ## Notes
 * そのままライブラリをimportしようとすると「content-security-policy」エラーが出るので<br>
-WevView2を使用したプログラムで用いる場合は、ソースをローカルに保存して仮想ホストで 「visualforce.com」のドメイン扱いにするなどの対応をしてください。
+WebView2を使用したプログラムで用いる場合は、ソースをローカルに保存して仮想ホストで 「visualforce.com」と同じドメイン扱いにするなどの対応をしてください。
 ```
  WebView2.CoreWebView2.SetVirtualHostNameToFolderMapping("SalesforceLightningAutoinput.visualforce.com", "contents", Microsoft.Web.WebView2.Core.CoreWebView2HostResourceAccessKind.Allow);
 ```
