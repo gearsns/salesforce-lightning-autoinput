@@ -287,9 +287,18 @@ export class SalesforceLightningAutoinput {
 				return null;
 			}
 			if (node.tagName.match(/lightning\-button/i) && node.innerText === name) {
+				let bSaveAndNew = await this.FindAllDescendants(node, async c_node => {
+					if (c_node.name === "SaveAndNew") {
+						return c_node;
+					}
+					return null;
+				})
+				//
+				let attr = el_actionbody.getAttribute("data-aura-rendered-by");
 				node.click();
 				if (wait) {
 					await this._sleep(1000);
+					// Loading...
 					for (let i = 0; i < 50; ++i) {
 						if (!await this.FindAllDescendants(el_actionbody, async c_node => {
 							if (!c_node || !c_node.tagName || !c_node.tagName.match) {
@@ -302,6 +311,34 @@ export class SalesforceLightningAutoinput {
 							break;
 						}
 						await this._sleep(500);
+					}
+					//
+					if (bSaveAndNew) {
+						// Wait for the new modal to be created.
+						for (let i = 0; i < 50; ++i) {
+							let el_actionbody_new = await this.getActionBodyElement();
+							if (el_actionbody_new) {
+								if (el_actionbody_new.getAttribute("data-aura-rendered-by") !== attr) {
+									break;
+								}
+							}
+							await this._sleep(500);
+						}
+						// Wait for the button to be enabled.
+						let el_actionbody_tmp = await this.getActionBodyElement();
+						if (el_actionbody_tmp) {
+							for (let i = 0; i < 50; ++i) {
+								if (await this.FindAllDescendants(el_actionbody_tmp, async c_node => {
+									if (c_node.name === "SaveAndNew") {
+										return c_node;
+									}
+									return null;
+								})) {
+									break;
+								}
+								await this._sleep(500);
+							}
+						}
 					}
 					await this._sleep(1000);
 				}
