@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>saleforce-auto</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable@6.2.2/dist/handsontable.full.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/handsontable@6.2.2/dist/handsontable.full.min.js"></script>
+    <style>
+        #input-panel {
+            position: fixed;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <button id="auto">Auto</button>
+        <input id="url" value="https://www.google.com">
+        <button id="go">Go</button>
+    </header>
+    <div id="input-panel">
+        <button id="run">Run</button>
+        <div id="hot"></div>
+    </div>
+    <webview id="main-content" src="https://www.google.com" preload="preload.js"></webview>
+    <script>
+        const wv = document.getElementById("main-content");
+        document.getElementById("go").addEventListener("click", e => {
+            wv.src = document.getElementById("url").value;
+        });
+        document.getElementById("auto").addEventListener("click", e => {
+            if (document.getElementById("input-panel").style.display === "block") {
+                document.getElementById("input-panel").style.display = "none";
+            } else {
+                document.getElementById("input-panel").style.display = "block";
+                hot.render();
+            }
+        });
+        document.getElementById("run").addEventListener("click", e => {
+            wv.send("run", hot.getData());
+        });
+        wv.addEventListener("did-finish-load", () => {
+            wv.openDevTools();
+        });
+        let data = [
+            ["", ""],
+        ];
+        let container = document.getElementById('hot');
+        let hot = new Handsontable(container, {
+            data: data,
+            rowHeaders: true,
+            colHeaders: ["Name", "Value"],
+            enterMoves: {
+                row: 0,
+                col: 1
+            },
+            minSpareRows: 1,
+            dropdownMenu: true
+        });
+    </script>
+</body>
+
+</html>

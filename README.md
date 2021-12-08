@@ -78,6 +78,12 @@ await import('https://********.visualforce.com/salesforce-lightning-autoinput.js
 	await slai.run("SLA Expiration Date", {date:"2022/02/04", time: "01:23"})
 	await slai.run({ type: "button", wait: true }, "Save");
 });
+```
+```
+await import('https://********.visualforce.com/salesforce-lightning-autoinput.js').then(async res => {
+	const slai = new res.SalesforceLightningAutoinput(".oneConsoleObjectHome");
+	await slai.run({ type: "anchor", wait: true }, "New");
+});
 
 ```
 

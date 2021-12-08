@@ -1,4 +1,5 @@
-export class CancellationToken {
+const {ipcRenderer} = require('electron')
+class CancellationToken {
 	isCancellationRequested = false;
 
 	constructor() {
@@ -11,7 +12,7 @@ export class CancellationToken {
 		this.isCancellationRequested = false;
     }
 }
-export class SalesforceLightningAutoinput {
+class SalesforceLightningAutoinput {
 	mainContentCond = ".actionBody";
 	cancellationToken = null;
 	constructor(m, ct = null) {
@@ -521,3 +522,9 @@ export class SalesforceLightningAutoinput {
 		console.log("end");
 	}
 }
+ipcRenderer.on('run', (sender, data) => {
+	const sla = new SalesforceLightningAutoinput();
+	for(let item of data){
+		sla.run(item[0], item[1]);
+	}
+});

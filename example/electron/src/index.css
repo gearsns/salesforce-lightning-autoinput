@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  width: 100vw;
+  height: 2rem;
+}
+#url {
+  width: calc(100vw - 8rem);
+}
+#main-content {
+  width: 100vw;
+  height: calc(100vh - 2.5rem);
+}
