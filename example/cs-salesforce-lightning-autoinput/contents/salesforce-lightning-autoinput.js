@@ -136,7 +136,7 @@ export class SalesforceLightningAutoinput {
 					}
 					return null;
 				});
-				if (el_input && el_input.className === "slds-input slds-combobox__input") {
+				if (el_input && el_input.className.match(/slds\-input/) && el_input.className.match(/slds\-combobox__input/)) {
 					for (let i = 0; i < 50; i++) {
 						if (this.cancellationToken && this.cancellationToken.isCancellationRequested) {
 							return null;
@@ -169,7 +169,7 @@ export class SalesforceLightningAutoinput {
 					}
 					return null;
 				});
-				if (el_input && el_input.className === "slds-input slds-combobox__input") {
+				if (el_input && el_input.className.match(/slds\-input/) && el_input.className.match(/slds\-combobox__input/)) {
 					el_input.value = input_value;
 					el_input.dispatchEvent(new Event("input"));
 					el_input.dispatchEvent(new Event("change"));
