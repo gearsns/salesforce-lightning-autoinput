@@ -131,7 +131,7 @@ export class SalesforceLightningAutoinput {
 					return null;
 				}
 				let el_input = await this.FindAllDescendants(node, async c_node => {
-					if (c_node && c_node.tagName && c_node.tagName.match && c_node.tagName.match(/input/i)) {
+					if (c_node && c_node.tagName && c_node.tagName.match && c_node.tagName.match(/input|button/i)) {
 						return c_node;
 					}
 					return null;
